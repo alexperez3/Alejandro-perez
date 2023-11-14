@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="es-Es" xml:lang="es-Es">
+<head>
+    <title>Romanos y arábigos</title>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <meta name="author" content="Ecléctikus" />
+    <meta name="author" content="noSoloDatos" />
+    <meta name="author" content="El simio ibérico promedio" />
+    
+    <link rel="stylesheet" href="css/bootstrap.css" media="screen">
+    <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <meta property="og:title" content="Romanos a arábigos y viceversa">
+    <meta property="og:description" content="Transforma números romanos a arábigos y viceversa">
+    <meta property="og:image" content="img/romans.png">
+    <meta property="og:url" content="https://nosolodatos.netlify.com/es/divert/arabroman">
+    <meta name="twitter:card" content="summary_large_image">
+    <style>
+        .res {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 21px;
+            font-weight: bold;
+            color: blue;
+            display: inline;
+            word-break: break-all;
+            word-wrap: break-word;
+        }
+        .breadcrumb {
+            font-weight: bold;
+            background-color: rgb(52, 58, 64);
+        }
+    </style>
+</head>
+
+<body style="text-align:center;">
+
+<div class="card bg-dark text-white">
+    <div class="card-body">
+        <h2 style="color:green;">
+            <p>De números arábigos a romanos y viceversa</p>
+        </h2>
+    </div>
+</div>
+<br> 
+<div class="row">
+    <div class="col">
+        <h3 style="color:green;">
+            <i class="fas fa-star-and-crescent"></i> &ensp; <i class="fas fa-caret-right fa-xs"></i> &ensp; <i
+                class="fas fa-archway"></i>
+        </h3>
+        <div class="input-group">
+            <div class="col-lg-2 center-block">
+                <br> 
+                <!-- <label class="control-label">Introduce un número y pulsa 'intro'</label> -->
+                <input id="numara" type="number" class="form-control" onchange="convertToRoman(this.value)" placeholder="2020">
+            </div>
+        </div>
+    <br>     
+    <div class="container">
+        <div class="alert alert-light">
+            <div class="res" id="res1"></div>
+        </div>
+    </div>
+    
+    </div>
+
+    <div class="col">
+        <h3 style="color:green;">
+            <i class="fas fa-archway"></i> &ensp; <i class="fas fa-caret-right fa-xs"></i> &ensp; <i class="fas fa-star-and-crescent"></i>
+        </h3>
+        <div class="input-group">
+            <div class="col-lg-2 center-block">
+                <br> 
+                <!-- <label class="control-label">Introduce un número y pulsa 'intro'</label> -->
+                <input id="numrom" type="text" class="form-control" onchange="deromanize(this.value)"
+                    placeholder="XXI">
+            </div>
+        </div>
+    <br> 
+    <div class="container">
+        <div class="alert alert-light">
+            <div class="res" id="res2"></div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+var val = document.getElementById("numrom").value;
+function convertToRoman(val) {
+// A/B=C => A = B*C + A % B
+    var lookup = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1},
+    roman = "",
+    i;
+    for ( i in lookup ) {
+        while ( val >= lookup[i] ) {
+        roman += i;
+        val -= lookup[i];
+        }
+    }
+console.log(roman);
+document.getElementById("res1").innerHTML = roman;
+return false;
+}
+function deromanize( numrom ) {
+    var numrom = numrom.toUpperCase(),
+    lookup = {I:1,V:5,X:10,L:50,C:100,D:500,M:1000},
+    arabic = 0,
+    i = numrom.length;
+    while (i--) {
+        if ( lookup[numrom[i]] < lookup[numrom[i+1]] ) arabic -= lookup[numrom[i]];
+        else arabic +=lookup[numrom[i]];
+    }
+console.log(arabic);
+document.getElementById("res2").innerHTML = arabic;
+return false;
+}
+</script>
+
+<div class="container">
+
+    <img src="img/42807.svg" alt="" height="75" />
+    
+    <h2>Info</h2>
+    <div class="card bg-dark text-white">
+        <div class="card-body">
+            <p>Esta aplicación no utiliza archivos externos. El código <em>Js</em> del convertidor se puede consultar en la propia
+                fuente de la página o en <a
+                    href="https://gist.github.com/Eclectikus/b3ebaa36382af8529ef6e821e148757d">este <em>gist</em></a>
+                    (está inspirado en <a
+                    href="http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter">este hilo</a>)</p>
+            <h4 style="color:green;">Hecho con <i class="fab fa-html5"></i> , <i class="fab fa-css3"></i> y <i
+                    class="fab fa-js-square"></i>
+            </h4>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container">
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-dark" style="width:100%"></div>
+    </div>
+</div>
+<div class="container">
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="https://nosolodatos.netlify.com/">noSoloDatos</a></li>
+        <li class="breadcrumb-item"><a href="https://nosolodatos.netlify.com/#wip">Wips</a></li>
+        <li class="breadcrumb-item active">Esta página</li>
+    </ul>
+</div>
+</body>
+</html>
